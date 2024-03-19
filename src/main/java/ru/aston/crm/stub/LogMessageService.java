@@ -3,16 +3,18 @@ package ru.aston.crm.stub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class LogMessageService {
+    private final LogMessageRepository logMessageRepository;
 
     @Autowired
-    private LogMessageRepository logMessageRepository;
+    public LogMessageService(LogMessageRepository logMessageRepository) {
+        this.logMessageRepository = logMessageRepository;
+    }
 
-    @KafkaListener(topics = "cms", groupId = "loggingServiceGroup")
-    public void listen(@RequestBody LogMessage message) {
+    @KafkaListener(topics = "cms", groupId = "cmsGroup")
+    public void listen(LogMessage message) {
         LogMessage logMessage = new LogMessage();
         logMessage.setMessage(message.getMessage());
         logMessageRepository.save(logMessage);
