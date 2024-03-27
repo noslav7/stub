@@ -9,6 +9,9 @@ public class LogMessage {
     private int id;
     private String message;
 
+    public LogMessage() {
+    }
+
     public int getId() {
         return id;
     }
