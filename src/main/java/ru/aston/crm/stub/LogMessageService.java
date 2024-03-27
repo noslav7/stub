@@ -16,9 +16,9 @@ public class LogMessageService {
     }
 
     @KafkaListener(topics = "cms", groupId = "cmsGroup")
-    public void listen(LogMessage message) {
+    public void listen(String message) {
         LogMessage logMessage = new LogMessage();
-        logMessage.setMessage(message.getMessage());
+        logMessage.setMessage(message);
         logMessageRepository.save(logMessage);
     }
 }
